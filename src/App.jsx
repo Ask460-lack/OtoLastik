@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Phone, MessageCircle, ArrowUp, Menu, X } from "lucide-react";
+import { products } from "./assets/products";
 
 export default function App() {
   const whatsappNumber = "905xxxxxxxxx";
@@ -33,7 +34,9 @@ export default function App() {
       <div className="fixed inset-0 bg-black flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-white/20 border-t-white rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-white tracking-widest text-sm md:text-base">Yükleniyor...</p>
+          <p className="text-white tracking-widest text-sm md:text-base">
+            Yükleniyor...
+          </p>
         </div>
       </div>
     );
@@ -56,96 +59,90 @@ export default function App() {
         <div className="max-w-6xl mx-auto flex justify-between items-center p-3 md:p-4">
           <h1 className="font-bold text-base md:text-lg">Oto Lastikçi</h1>
 
-          {/* DESKTOP MENU */}
           <nav className="hidden md:flex gap-6 text-sm">
-            <button onClick={() => scrollTo("services")} className="hover:text-white/70">Hizmetler</button>
-            <button onClick={() => scrollTo("products")} className="hover:text-white/70">Ürünler</button>
-            <button onClick={() => scrollTo("contact")} className="hover:text-white/70">İletişim</button>
-          </nav>
-
-          {/* MOBILE MENU BUTTON */}
-          <button
-            className="md:hidden"
-            onClick={() => setMobileMenu(!mobileMenu)}
-          >
-            {mobileMenu ? <X /> : <Menu />}
-          </button>
-        </div>
-
-        {/* MOBILE MENU */}
-        {mobileMenu && (
-          <div className="md:hidden bg-black/90 backdrop-blur-md px-6 py-4 flex flex-col gap-4 text-sm">
             <button onClick={() => scrollTo("services")}>Hizmetler</button>
             <button onClick={() => scrollTo("products")}>Ürünler</button>
             <button onClick={() => scrollTo("contact")}>İletişim</button>
-          </div>
-        )}
+          </nav>
+
+          <button className="md:hidden" onClick={() => setMobileMenu(!mobileMenu)}>
+            {mobileMenu ? <X /> : <Menu />}
+          </button>
+        </div>
       </header>
 
       {/* HERO */}
-      <section className="min-h-screen flex items-center justify-center text-center px-4 md:px-6">
+      <section className="min-h-screen flex items-center justify-center text-center px-4">
         <div className="bg-white/10 backdrop-blur-md border border-white/10 p-6 md:p-10 rounded-2xl max-w-xl">
           <h2 className="text-2xl md:text-5xl font-bold mb-4">
             Güvenli Sürüş İçin Doğru Lastik
           </h2>
-          <p className="text-white/80 text-sm md:text-base mb-6">
-            7/24 yol yardım ve profesyonel lastik hizmeti
-          </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href={phoneNumber} className="bg-green-600 px-5 py-3 rounded-xl flex items-center justify-center gap-2">
+            <a href={phoneNumber} className="bg-blue-600 px-5 py-3 rounded-xl flex items-center justify-center gap-2">
               <Phone size={18} /> Ara
             </a>
-            <a href={`https://wa.me/${whatsappNumber}`} target="_blank" className="bg-green-500 px-5 py-3 rounded-xl flex items-center justify-center gap-2">
+            <a
+              href={`https://wa.me/${whatsappNumber}`}
+              target="_blank"
+              className="bg-green-500 px-5 py-3 rounded-xl flex items-center justify-center gap-2"
+            >
               <MessageCircle size={18} /> WhatsApp
             </a>
           </div>
         </div>
       </section>
 
-      {/* SERVICES */}
-      <section id="services" className="py-16 md:py-20 max-w-6xl mx-auto px-4 md:px-6">
-        <h3 className="text-2xl md:text-3xl font-bold mb-8">Hizmetler</h3>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          {["Lastik Değişimi","Balans Ayarı","Yol Yardım","Lastik Tamiri","Mevsimlik Lastik","Jant Hizmeti"].map((item) => (
-            <div key={item} className="bg-white/10 p-5 md:p-6 rounded-2xl border border-white/10">
-              <h4 className="font-semibold text-base md:text-lg">{item}</h4>
-              <p className="text-white/70 text-xs md:text-sm mt-2">Profesyonel hizmet.</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* PRODUCTS */}
-      <section id="products" className="py-16 md:py-20 max-w-6xl mx-auto px-4 md:px-6">
+      <section id="products" className="py-16 md:py-20 max-w-6xl mx-auto px-4">
         <h3 className="text-2xl md:text-3xl font-bold mb-8">Ürünler</h3>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          {["Kış Lastiği","Yaz Lastiği","4 Mevsim Lastik"].map((item) => (
-            <div key={item} className="bg-white/10 p-5 md:p-6 rounded-2xl border border-white/10">
-              <div className="h-32 md:h-40 bg-white/10 rounded-xl mb-4" />
-              <h4 className="font-semibold text-base md:text-lg">{item}</h4>
-              <p className="text-white/70 text-xs md:text-sm">Uygun fiyatlı ürünler.</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {products.map((item) => (
+            <div
+              key={item.description}
+              className="bg-white/10 p-5 md:p-6 rounded-2xl border border-white/10"
+            >
+              <img
+                src={item.image}
+                alt={item.description}
+                className="w-full h-40 object-fill rounded-xl mb-4"
+              />
+
+              <h4 className="font-semibold text-base md:text-lg">
+                {item.description}
+              </h4>
+
+              <p className="text-white/70 text-sm">
+                Uygun fiyatlı ürünler.
+              </p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* CONTACT */}
-      <section id="contact" className="py-16 md:py-20 max-w-6xl mx-auto px-4 md:px-6">
+      {/* CONTACT (RESTORED) */}
+      <section id="contact" className="py-16 md:py-20 max-w-6xl mx-auto px-4">
         <h3 className="text-2xl md:text-3xl font-bold mb-8">İletişim</h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white/10 p-6 md:p-8 rounded-2xl border border-white/10">
-            <p className="text-white/80 text-sm md:text-base">Telefon: +90 5xx xxx xx xx</p>
-            <p className="text-white/80 text-sm md:text-base">Adres: Ankara / Türkiye</p>
+          <div className="bg-white/10 p-6 md:p-8 rounded-2xl border flex flex-col justify-center items-center border-white/10">
+            <p className="text-white/80 text-xl ">
+              Telefon: +90 5xx xxx xx xx
+            </p>
+            <p className="text-white/80 text-xl ">
+              Adres: Ankara / Türkiye
+            </p>
 
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <a href={phoneNumber} className="bg-blue-600 px-4 py-2 rounded-xl flex items-center justify-center gap-2">
                 <Phone size={16} /> Ara
               </a>
-              <a href={`https://wa.me/${whatsappNumber}`} target="_blank" className="bg-green-600 px-4 py-2 rounded-xl flex items-center justify-center gap-2">
+              <a
+                href={`https://wa.me/${whatsappNumber}`}
+                target="_blank"
+                className="bg-green-600 px-4 py-2 rounded-xl flex items-center justify-center gap-2"
+              >
                 <MessageCircle size={16} /> WhatsApp
               </a>
             </div>
@@ -171,14 +168,13 @@ export default function App() {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-4 right-4 md:bottom-6 md:right-6 bg-white/20 p-3 rounded-full backdrop-blur-md border border-white/20"
+          className="fixed bottom-6 right-6 bg-white/20 p-3 rounded-full"
         >
           <ArrowUp size={20} />
         </button>
       )}
 
-      {/* FOOTER */}
-      <footer className="text-center py-10 text-white/60 border-t border-white/10 text-sm">
+      <footer className="text-center py-10 text-white/60 text-sm">
         © {new Date().getFullYear()} Oto Lastikçi
       </footer>
     </div>
